@@ -1,0 +1,39 @@
+def regula_falsi(f, a, b, tol, max_iter):
+    iter_count = 0
+
+    while iter_count < max_iter:
+        # Hitung nilai fungsi pada titik a dan b
+        fa = f(a)
+        fb = f(b)
+
+        if abs(fa - fb) < tol:
+            # Akurasi sudah mencapai nilai yang diinginkan
+            return (a + b) / 2
+
+        # Hitung titik tengah
+        c = (a * fb - b * fa) / (fb - fa)
+
+        # Hitung nilai fungsi pada titik tengah
+        fc = f(c)
+
+        # Cek tanda fungsi pada titik tengah
+        if fc * fa < 0:
+            b = c
+        else:
+            a = c
+
+        iter_count += 1
+
+    return (a + b) / 2
+
+# Contoh penggunaan:
+def f(x):
+    return x**3 - 6*x**2 + 11*x - 6
+
+a = 3.0
+b = 6.0
+tolerance = 1e-6
+max_iterations = 100
+
+root = regula_falsi(f, a, b, tolerance, max_iterations)
+print("Akar persamaan:", root)
